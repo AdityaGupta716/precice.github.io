@@ -61,8 +61,8 @@ a:hover > .navbar-brand-icon:before{
 /* Fix Firefox/normalize.css bug https://github.com/necolas/normalize.css/issues/740 */
 details > summary {
   display: list-item;
-  margin-bottom: 10px;
 }
+
 
 /* General layout classes */
 
@@ -349,30 +349,47 @@ div#tg-sb-sidebar {
   }
 }
 
-/* Hide default marker Chromium/WebKit */
+
+/* Collapsible elements (details/summary) styling */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Hide default browser markers */
 details > summary::-webkit-details-marker {
   display: none !important;
 }
 
-/* Hide default marker in Firefox */
-details > summary {
-  list-style: none;
-  cursor: pointer;
-  position: relative;
-  padding-right: 1.2em;
-}
-
-/* closed */
-details > summary::after {
+/* Custom arrow placed before the text */
+details > summary::before {
   content: "▼";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.9em;
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 0.85em;
+  color: #666;
 }
 
-/* open */
-details[open] > summary::after {
+/* Arrow points up when open */
+details[open] > summary::before {
   content: "▲";
+}
+
+/* Subtle hover effect */
+details > summary:hover {
+  color: #0A76BB;
+}
+
+/* Proper spacing for content inside details */
+details[open] > :not(summary) {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+/* Extra space for lists inside opened details */
+details[open] > ul,
+details[open] > ol {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
