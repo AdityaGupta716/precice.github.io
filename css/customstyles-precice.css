@@ -349,30 +349,48 @@ div#tg-sb-sidebar {
   }
 }
 
-/* Hide default marker Chromium/WebKit */
-details > summary::-webkit-details-marker {
-  display: none !important;
-}
-
-/* Hide default marker in Firefox */
+/* Simplify and fix cross-browser default markers */
 details > summary {
-  list-style: none;
-  cursor: pointer;
-  position: relative;
-  padding-right: 1.2em;
+    display: list-item;
+    list-style: none;
+    /* Hide default native arrow */
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
-/* closed */
-details > summary::after {
-  content: "▼";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.9em;
+/* Hide default native arrow in Chromium/WebKit */
+details > summary::-webkit-details-marker {
+    display: none !important;
 }
 
-/* open */
-details[open] > summary::after {
-  content: "▲";
+/* Base custom arrow placed before the text */
+details > summary::before {
+    content: "►";
+    /* Right-facing arrow when closed */
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Arrow points down when open */
+details[open] > summary::before {
+    content: "▼";
+}
+
+details > summary:hover {
+    color: #0A76BB;
+    /* simple color change to precice brand blue */
+}
+
+/* Indent the content to align with the text, not the arrow */
+details[open] > *:not(summary) {
+    padding-left: 18px;
+}
+
+/* Add more space around lists inside opened details */
+details[open] > ul,
+details[open] > ol {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
